@@ -39,7 +39,7 @@ let mutation = new GraphQLObjectType({
     toyUpdate,
     toyRemove,
 	}
-}); //forgot semicolon possibly
+});
 
 let schema = new GraphQLSchema({
   query,

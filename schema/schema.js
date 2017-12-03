@@ -101,6 +101,21 @@ const mutation = new GraphQLObjectType({
           .then(res => res.data);
       }
     }
+    editToy: {
+      type: ToyType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+        category: { type: GraphQLString },
+        subCategory: { type: GraphQLString },
+        description: { type: GraphQLString },
+        price: { type: GraphQLFloat },
+        ownerId: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        return axios.patch(`http://localhost3000/toys/${args.id}`, args)
+          .then(res => res.data);
+      }
+    }
   }
 });
 
