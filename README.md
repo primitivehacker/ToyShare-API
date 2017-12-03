@@ -5,10 +5,10 @@ clone this repository
 	cd path-to-repo
     npm i
 	npm run start
-	
+
 let me know if you run into any errors starting there. you will likely get some console warnings with regards to mongoose and mongo, but you should ultimately see a message saying "we're connected"
 
-you can navigate to `localhost:8080/graphql` and you should see a GraphIQL interface for interacting with the GQL api. 
+you can navigate to `localhost:8080/graphql` and you should see a GraphIQL interface for interacting with the GQL api.
 
 get users
 
@@ -20,7 +20,7 @@ get users
    			email
   		}
 	}
-	
+
 create a user
 
 	mutation {
@@ -35,9 +35,9 @@ create a user
 			email
 		}
 	}
-	
+
 let me know if this works.
-		
+
 
 ### What is this repository for? ###
 

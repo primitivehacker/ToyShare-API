@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {UserMongoose} = require('./models/user');
+const {ToyMongoose} = require('./models/toy');
 
 const state = {
     db: null,

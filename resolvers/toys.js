@@ -13,23 +13,23 @@ const {
 const mongoose = require('mongoose');
 
 const {
-	UserGraphQLType,
-	UserMongoose,
-	UserFields,
-	UserInputFields,
-} = require('../models/user');
+  ToyGraphQLType,
+  ToyMongoose,
+  ToyFields,
+  ToyInputFields,
+} = require('../models/toy');
 
 
 ////////////////////////////////////
 //            Queries             //
 ////////////////////////////////////
 
-const users = {
-    type: new GraphQLList(UserGraphQLType),
+const toys = {
+    type: new GraphQLList(ToyGraphQLType),
     args: {
         ids: {
             type: new GraphQLList(GraphQLID),
-            description: `A List of user IDs`
+            description: `A List of toy IDs`
         }
     },
     resolve: function(obj, args, context) {
@@ -38,37 +38,25 @@ const users = {
             if (args.ids) {
                 query = {_id: {$in: args.ids.map(id => new mongoose.Types.ObjectId(id))}}
             }
-            UserMongoose.find(query).exec((err, users) => {
+            ToyMongoose.find(query).exec((err, toys) => {
                 if (err) reject(err)
-                else resolve(users)
+                else resolve(toys)
             })
         })
     }
 };
 
-const user = {
-    type: UserGraphQLType,
+const toy = {
+    type: ToyGraphQLType,
     args: {
         id: {
             type: GraphQLID,
-            description: `The ID of the user`
-        },
-        email: {
-            type: GraphQLString,
-            desciption: `The email of the user`
+            description: `The ID of the toy`
         }
     },
     resolve: function(obj, args, context) {
         return new Promise((resolve, reject) => {
-            if (args.email) {
-                UserMongoose.findOne({email: args.email}).exec((err, res) => {
-                    if (err) reject(err);
-                    else {
-                        resolve(res)
-                    }
-                })
-            } else {
-                UserMongoose.findById(args.id).exec((err, res) => {
+                ToyMongoose.findById(args.id).exec((err, res) => {
                     if (err) reject(err)
                     else {
                         resolve(res);
@@ -84,57 +72,57 @@ const user = {
 //            Mutations           //
 ////////////////////////////////////
 
-const userCreate = {
-    type: UserGraphQLType,
-    description: `Adds a new user`,
-    args: UserInputFields,
+const toyCreate = {
+    type: ToyGraphQLType,
+    description: `Adds a new toy`,
+    args: ToyInputFields,
     resolve: (obj, args, context) => {
         return new Promise((resolve, reject) => {
-            const newUser = new UserMongoose(args);
-            newUser.save( (err, user) => {
+            const newToy = new ToyMongoose(args);
+            newToy.save( (err, toy) => {
                 if (err) reject(err)
                 else {
-                    resolve(user);
+                    resolve(toy);
                 }
             })
         })
     }
 };
 
-const userUpdate = {
-    type: UserGraphQLType,
-    desciption: `Updates a user`,
+const toyUpdate = {
+    type: ToyGraphQLType,
+    desciption: `Updates a toy`,
     args: Object.assign(
             {},
-            UserInputFields
+            ToyInputFields
     ),
     resolve: (obj, args, context) => {
         return new Promise((resolve, reject) => {
-            UserMongoose.findByIdAndUpdate(args.id, args, (err, user) => {
+            ToyMongoose.findByIdAndUpdate(args.id, args, (err, toy) => {
                 if (err) reject(err)
                 else {
-                    resolve(user)
+                    resolve(toy)
                 }
             })
         })
     }
 };
 
-const userRemove = {
-    type: UserGraphQLType,
-    desciption: `Removes user of the provided email and/or ID`,
+const toyRemove = {
+    type: ToyGraphQLType,
+    desciption: `Removes toy of the provided email and/or ID`,
     args: {
         id: {
             type: new GraphQLNonNull(GraphQLID),
-            desciption: `The ID of the user`
+            desciption: `The ID of the toy`
         }
     },
     resolve: (obj, args, context) => {
         return new Promise((resolve, reject) => {
-            UserMongoose.findByIdAndRemove(args.id, (err, user) => {
+            ToyMongoose.findByIdAndRemove(args.id, (err, toy) => {
                 if (err) reject(err)
                 else {
-                    resolve(user)
+                    resolve(toy)
                 }
             })
         })
@@ -142,9 +130,9 @@ const userRemove = {
 }
 
 module.exports = {
-    user,
-    users,
-    userCreate,
-    userUpdate,
-    userRemove,
+    toy,
+    toys,
+    toyCreate,
+    toyUpdate,
+    toyRemove,
 };

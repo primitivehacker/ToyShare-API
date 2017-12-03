@@ -25,13 +25,15 @@ const userSchema = new Schema({
 	first_name: String,
 	last_name: String,
 	phone_number: String,
+	toys_id: ID,
+	current
 	updated_at: Date,
 });
 
 // on every save, add the date
 userSchema.pre('save', function(next) {
 	var currentDate = new Date();
-	
+
 	this.updated_at = currentDate;
 
 	if (!this.created_at)

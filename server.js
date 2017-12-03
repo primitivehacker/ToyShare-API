@@ -6,12 +6,14 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {UserMongoose} = require('./models/user');
+const {ToyMongoose} = require('./models/toy');
 
 const {graphql} = require('graphql');
 const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 const graphqlHTTP = require('express-graphql');
 
 const graphqlSchema = require('./graphqlSchema');
+const schema = require('./schema/schema');
 
 const app = express();
 
@@ -21,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('*', cors());
 
 app.use(function(req ,res ,next){
-	
+
 	res.set("Access-Control-Allow-Origin", "*");
 	res.set("Access-Control-Request-Headers", "*");
 	res.set('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
@@ -37,7 +39,7 @@ var graphqlParser = bodyParser.text({ type: 'application/graphql' })
 
 app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
-  graphiql: true
+	graphiql: true
 }));
 
 
