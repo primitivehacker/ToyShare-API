@@ -1,3 +1,4 @@
+//???
 const {
   GraphQLObjectType,
   GraphQLSchema,
@@ -19,6 +20,7 @@ const {
   toyUpdate,
 } = require('./resolvers/toys');
 
+
 let query = new GraphQLObjectType({
 	name: 'RootQueryType',
 	fields: {
@@ -37,7 +39,7 @@ let mutation = new GraphQLObjectType({
 		userRemove,
     toyCreate,
     toyUpdate,
-    toyRemove,
+    toyRemove
 	}
 });
 

@@ -20,14 +20,17 @@ const {
 const Schema = mongoose.Schema;
 
 const toySchema = new Schema({
-	created_at: Date,
-	email: {type: String, unique: true, sparse: true},
-	first_name: String,
-	last_name: String,
-	phone_number: String,
-	toys_id: ID,
-	current
+	category: String,
+	subCategory: String,
+	price: Number,
+	condition: String,
+	user: {type: Schema.Types.ObjectId, ref: 'User'},
+	reviews: [String],
+	location: String,
+	availability: Boolean,
+	timeLeft: String,
 	updated_at: Date,
+	created_at: Date,
 });
 
 // on every save, add the date
@@ -50,7 +53,7 @@ const ToyFields = {
 	subCategory: { type: GraphQLString },
 	price: { type: GraphQLFloat },
 	condition: { type: GraphQLString },
-	owner: { type: GraphQLID },
+	user: { type: GraphQLID },
 	reviews: { type: GraphQLString },
 	location: { type: GraphQLString},
 	availability: { type: GraphQLBoolean },

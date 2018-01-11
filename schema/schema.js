@@ -7,22 +7,24 @@ const {
   GraphQLFloat,
   GraphQLBoolean,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLID
 } = graphql;
 
-const OwnerType = new GraphQLObjectType({
-  name: 'Owner',
+const UserType = new GraphQLObjectType({
+  name: 'UserType',
   fields: () => ({
-    id: { type: GraphQLString },
-    first_name: { type: GraphQLString },
-    last_name: { type: GraphQLString },
-    location: { type: GraphQLString },
-    rating: { type: GraphQLString
+    id: {type: GraphQLID},
+  	created_at: {type: GraphQLString},
+  	email: {type: new GraphQLNonNull(GraphQLString)},
+  	first_name: {type: GraphQLString},
+  	last_name: {type: GraphQLString},
+  	phone_number: {type: GraphQLString},
+  	updated_at: {type: GraphQLString},
     toys: {
       type: new GraphQLList(ToyType),
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/owners/${parentValue.id}/toys`)
-          .then(res => res.data);
+        return axios.get(`http://localhost:3000/user/${parentValue.toy}`)
       }
     }
 
@@ -30,7 +32,7 @@ const OwnerType = new GraphQLObjectType({
 });
 
 const ToyType = new GraphQLObjectType({
-  name: 'Toy',
+  name: 'ToyType',
   fields: () => ({
     id: { type: GraphQLString },
     category: { type: GraphQLString },
@@ -38,19 +40,20 @@ const ToyType = new GraphQLObjectType({
     price: { type: GraphQLFloat },
     condition: { type: GraphQLString },
     description: { type: GraphQLString },
-    owner: {
-      type: OwnerType,
+    user: {
+      type: UserType,
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/toys/${parentValue.ownerId}`)
+        return axios.get(`http://localhost:3000/toys/${parentValue.user}`)
           .then(res => res.data);
       }
     }
     reviews: { type: GraphQLString },
-    location: { type: GraphQLString},
+    location: { type: LocationType },
     availability: { type: GraphQLBoolean },
     timeLeft: { type: GraphQLString }
   })
 });
+
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -63,8 +66,8 @@ const RootQuery = new GraphQLObjectType({
         .then(resp => resp.data);
       }
     }
-    owner: {
-      type: OwnerType,
+    user: {
+      type: UserType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
         return axios.get(`http://localhost:3000/owners/${args.id}`
@@ -84,7 +87,7 @@ const mutation = new GraphQLObjectType({
         subCategory: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: GraphQLString },
         price: { type: new GraphQLNonNull(GraphQLFloat) },
-        ownerId: { type: GraphQLString }
+        userId: { type: GraphQLString }
       },
       resolve(parentValue, { category, subCategory, price }) {
         return axios.post('http://localhost:3000/toys', { category, subCategory, price })
@@ -109,7 +112,7 @@ const mutation = new GraphQLObjectType({
         subCategory: { type: GraphQLString },
         description: { type: GraphQLString },
         price: { type: GraphQLFloat },
-        ownerId: { type: GraphQLString }
+        userId: { type: GraphQLString }
       },
       resolve(parentValue, args) {
         return axios.patch(`http://localhost3000/toys/${args.id}`, args)

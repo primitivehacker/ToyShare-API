@@ -56,13 +56,12 @@ const toy = {
     },
     resolve: function(obj, args, context) {
         return new Promise((resolve, reject) => {
-                ToyMongoose.findById(args.id).exec((err, res) => {
-                    if (err) reject(err)
-                    else {
-                        resolve(res);
-                    }
-                })
-            }
+            ToyMongoose.findById(args.id).exec((err, res) => {
+              if (err) reject(err)
+              else {
+                resolve(res);
+              }
+            })
         })
     }
 };

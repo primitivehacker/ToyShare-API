@@ -13,7 +13,7 @@ const {graphqlExpress, graphiqlExpress} = require('graphql-server-express');
 const graphqlHTTP = require('express-graphql');
 
 const graphqlSchema = require('./graphqlSchema');
-const schema = require('./schema/schema');
+//const schema = require('./schema/schema');
 
 const app = express();
 

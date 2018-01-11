@@ -25,9 +25,8 @@ const userSchema = new Schema({
 	first_name: String,
 	last_name: String,
 	phone_number: String,
-	toys_id: ID,
-	current
-	updated_at: Date,
+	toys: {type: Schema.Types.ObjectId, ref: 'Toy'},
+	updated_at: Date
 });
 
 // on every save, add the date
@@ -51,7 +50,8 @@ const UserFields = {
 	first_name: {type: GraphQLString},
 	last_name: {type: GraphQLString},
 	phone_number: {type: GraphQLString},
-	updated_at: {type: GraphQLString},
+	toys: {type: GraphQLID},
+	updated_at: {type: GraphQLString}
 };
 
 const UserInputFields = Object.assign({}, UserFields);
