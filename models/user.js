@@ -25,7 +25,6 @@ const userSchema = new Schema({
 	first_name: String,
 	last_name: String,
 	phone_number: String,
-	toys: {type: Schema.Types.ObjectId, ref: 'Toy'},
 	updated_at: Date
 });
 
@@ -50,7 +49,7 @@ const UserFields = {
 	first_name: {type: GraphQLString},
 	last_name: {type: GraphQLString},
 	phone_number: {type: GraphQLString},
-	toys: {type: GraphQLID},
+	toys: {type: new GraphQLList(GraphQLID)},
 	updated_at: {type: GraphQLString}
 };
 

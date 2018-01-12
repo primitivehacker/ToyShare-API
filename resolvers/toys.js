@@ -38,7 +38,7 @@ const toys = {
             if (args.ids) {
                 query = {_id: {$in: args.ids.map(id => new mongoose.Types.ObjectId(id))}}
             }
-            ToyMongoose.find(query).exec((err, toys) => {
+            ToyMongoose.find(query).populate('toys').exec((err, toys) => {
                 if (err) reject(err)
                 else resolve(toys)
             })
@@ -56,12 +56,14 @@ const toy = {
     },
     resolve: function(obj, args, context) {
         return new Promise((resolve, reject) => {
-            ToyMongoose.findById(args.id).exec((err, res) => {
-              if (err) reject(err)
-              else {
-                resolve(res);
-              }
-            })
+            ToyMongoose.findById(args.id)
+                .populate('user', 'id first_name last_name')
+                .exec((err, res) => {
+                    if (err) reject(err)
+                    else {
+                        resolve(res);
+                    }
+                })
         })
     }
 };

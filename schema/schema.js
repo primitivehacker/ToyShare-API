@@ -43,8 +43,7 @@ const ToyType = new GraphQLObjectType({
     user: {
       type: UserType,
       resolve(parentValue, args) {
-        return axios.get(`http://localhost:3000/toys/${parentValue.user}`)
-          .then(res => res.data);
+        UserMongo
       }
     }
     reviews: { type: GraphQLString },
@@ -65,7 +64,7 @@ const RootQuery = new GraphQLObjectType({
         return axios.get(`http://localhost:3000/toys/${args.id}`)
         .then(resp => resp.data);
       }
-    }
+    },
     user: {
       type: UserType,
       args: { id: { type: GraphQLString } },

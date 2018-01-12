@@ -17,10 +17,14 @@ const {
 	GraphQLString
 } = require('graphql');
 
+const {
+	UserGraphQLType
+} = require('./user')
+
 const Schema = mongoose.Schema;
 
 const toySchema = new Schema({
-	category: String,
+	category: {type: String, values: ['smmr', 'wnntr']},
 	subCategory: String,
 	price: Number,
 	condition: String,
@@ -53,9 +57,10 @@ const ToyFields = {
 	subCategory: { type: GraphQLString },
 	price: { type: GraphQLFloat },
 	condition: { type: GraphQLString },
-	user: { type: GraphQLID },
-	reviews: { type: GraphQLString },
-	location: { type: GraphQLString},
+	user: { type: UserGraphQLType },
+	reviews: { type: new GraphQLList(GraphQLString) },
+	location_lat: { type: GraphQLFlot},
+	location_long: { type: GraphQLFloat},
 	availability: { type: GraphQLBoolean },
 	timeLeft: { type: GraphQLString }
 };
