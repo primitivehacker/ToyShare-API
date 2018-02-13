@@ -27,7 +27,7 @@ const {
 const users = {
     type: new GraphQLList(UserGraphQLType),
     args: {
-        ids: {
+        id: {
             type: new GraphQLList(GraphQLID),
             description: `A List of user IDs`
         }

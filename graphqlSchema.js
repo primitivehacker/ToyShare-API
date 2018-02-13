@@ -1,6 +1,7 @@
 //???
 const {
   GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLSchema,
 } =  require('graphql');
 
@@ -31,7 +32,7 @@ let query = new GraphQLObjectType({
 	}
 });
 
-let mutation = new GraphQLObjectType({
+let mutation = new GraphQLInputObjectType({
 	name: 'RootMutationType',
 	fields: {
 		userCreate,

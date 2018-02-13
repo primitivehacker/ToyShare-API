@@ -2,6 +2,7 @@ const graphql = require('graphql');
 const axios = require('axios');
 const {
   GraphQLObjectType,
+  GraphQLInputObjectType,
   GraphQLString,
   GraphQLInt,
   GraphQLFloat,
@@ -36,7 +37,7 @@ const ToyType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLString },
     category: { type: GraphQLString },
-    subCategory: { type: GraphQLString },
+    sub_category: { type: GraphQLString },
     price: { type: GraphQLFloat },
     condition: { type: GraphQLString },
     description: { type: GraphQLString },
@@ -46,7 +47,7 @@ const ToyType = new GraphQLObjectType({
         UserMongo
       }
     }
-    reviews: { type: GraphQLString },
+    reviews: { type: new GraphQLList(GraphQLString) },
     location: { type: LocationType },
     availability: { type: GraphQLBoolean },
     timeLeft: { type: GraphQLString }

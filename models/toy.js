@@ -59,7 +59,7 @@ const ToyFields = {
 	condition: { type: GraphQLString },
 	user: { type: UserGraphQLType },
 	reviews: { type: new GraphQLList(GraphQLString) },
-	location_lat: { type: GraphQLFlot},
+	location_lat: { type: GraphQLFloat},
 	location_long: { type: GraphQLFloat},
 	availability: { type: GraphQLBoolean },
 	timeLeft: { type: GraphQLString }
