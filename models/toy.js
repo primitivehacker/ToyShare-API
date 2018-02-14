@@ -52,7 +52,7 @@ toySchema.pre('save', function(next) {
 var ToyMongoose = mongoose.model('Toy', toySchema);
 
 const ToyFields = {
-	id: { type: GraphQLString },
+	id: { type: GraphQLID },
 	category: { type: GraphQLString },
 	subCategory: { type: GraphQLString },
 	price: { type: GraphQLFloat },
@@ -66,6 +66,7 @@ const ToyFields = {
 };
 
 const ToyInputFields = Object.assign({}, ToyFields);
+ToyInputFields.user = {type: GraphQLID};
 
 const ToyGraphQLType = new GraphQLObjectType({
 	name: 'toy',

@@ -32,7 +32,7 @@ let query = new GraphQLObjectType({
 	}
 });
 
-let mutation = new GraphQLInputObjectType({
+let mutation = new GraphQLObjectType({
 	name: 'RootMutationType',
 	fields: {
 		userCreate,
