@@ -20,13 +20,19 @@ const {
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+	username: {
+		type: String,
+		unique: true
+	},
 	created_at: Date,
 	email: {type: String, unique: true, sparse: true},
+	password: String,
 	first_name: String,
 	last_name: String,
+	avatar: String,
 	phone_number: String,
 	updated_at: Date
-});
+});  //possibly add { timestamps: true } before closing parenth
 
 // on every save, add the date
 userSchema.pre('save', function(next) {

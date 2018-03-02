@@ -27,7 +27,7 @@ const {
 const toys = {
     type: new GraphQLList(ToyGraphQLType),
     args: {
-        ids: {
+        id: {
             type: new GraphQLList(GraphQLID),
             description: `A List of toy IDs`
         }

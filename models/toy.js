@@ -25,7 +25,7 @@ const Schema = mongoose.Schema;
 
 const toySchema = new Schema({
 	category: {type: String, values: ['smmr', 'wnntr']},
-	subCategory: String,
+	sub_category: String,
 	price: Number,
 	condition: String,
 	user: {type: Schema.Types.ObjectId, ref: 'User'},
@@ -52,9 +52,9 @@ toySchema.pre('save', function(next) {
 var ToyMongoose = mongoose.model('Toy', toySchema);
 
 const ToyFields = {
-	id: { type: GraphQLString },
+	id: { type: GraphQLID },
 	category: { type: GraphQLString },
-	subCategory: { type: GraphQLString },
+	sub_category: { type: GraphQLString },
 	price: { type: GraphQLFloat },
 	condition: { type: GraphQLString },
 	user: { type: UserGraphQLType },
@@ -66,6 +66,7 @@ const ToyFields = {
 };
 
 const ToyInputFields = Object.assign({}, ToyFields);
+ToyInputFields.user = { type: GraphQLID };
 
 const ToyGraphQLType = new GraphQLObjectType({
 	name: 'toy',
