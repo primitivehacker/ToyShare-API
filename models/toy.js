@@ -66,7 +66,11 @@ const ToyFields = {
 };
 
 const ToyInputFields = Object.assign({}, ToyFields);
+<<<<<<< HEAD
 ToyInputFields.user = { type: GraphQLID };
+=======
+ToyInputFields.user = {type: GraphQLID};
+>>>>>>> 284de6c17a7fddef3b3591fc307b0a5eed056825
 
 const ToyGraphQLType = new GraphQLObjectType({
 	name: 'toy',
